@@ -13,7 +13,7 @@ Options:
 
 """
 
-___version___ = '0.1.0.dev'
+___version___ = '0.1.0'
 
 import smtplib
 from email.mime.text import MIMEText
