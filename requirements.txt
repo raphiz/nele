@@ -1,0 +1,4 @@
+py-gfm
+python-frontmatter
+jinja2
+docopt

@@ -1,0 +1,19 @@
+email:
+    template: template.html
+
+sender:
+    host: smtp.example.com
+    ssl: false
+    starttls: true
+    user: foo@example.com
+    sender: My Newsletter <foo@example.com>
+
+source:
+    provider: sqlite
+    url: db.sqlite
+    query: SELECT * FROM users;
+
+draft:
+    name: John
+    custom_param: Foo
+    email: baa@example.com
