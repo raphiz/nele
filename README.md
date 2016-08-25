@@ -34,9 +34,10 @@ vi nele.yaml
 wget https://raw.githubusercontent.com/raphiz/nele/master/example/template.html
 ```
 
-5. Create your first newsletter! To get started, you can use a template as well (or checkout the [configuration](#Configuration) section)
+5. Create your first newsletter! To get started, you can use a template as well (or checkout the [configuration](#Configuration) section). This template defines an attachment. Delete the attachment section if you don't want it or download the example pdf as well.
 ```bash
 wget https://raw.githubusercontent.com/raphiz/nele/master/example/mail.md
+wget https://raw.githubusercontent.com/raphiz/nele/master/example/demo.pdf
 ```
 
 6. Ready to try it out? Test it before you send it to everyone using the draft method. The second parameter is the receiver
