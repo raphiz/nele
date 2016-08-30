@@ -19,6 +19,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
+from email import utils as emailutils
 
 import mimetypes
 import getpass
@@ -85,6 +86,7 @@ def send_newsletter(source, config, recipients):
         msg['Subject'] = post['subject']
         msg['From'] = config['sender']['sender']
         msg['To'] = receiver['email']
+        msg['Date'] = emailutils.formatdate()
         msg.preamble = post['subject']
 
         context = receiver.copy()
