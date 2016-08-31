@@ -88,6 +88,7 @@ def send_newsletter(source, config, recipients):
         msg['From'] = config['sender']['sender']
         msg['To'] = receiver['email']
         msg['Date'] = email.utils.formatdate()
+        msg['Message-ID'] = email.utils.make_msgid()
         msg.preamble = post['subject']
 
         context = receiver.copy()
