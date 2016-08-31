@@ -113,3 +113,5 @@ This is a fancy email!
 
 Feel free to open new issues, submit pull requests or send me an email.
 I would love to hear from you.
+
+This project is developed with [git flow](http://nvie.com/posts/a-successful-git-branching-model/). If you create a pull request, please select merge on `development` - not on `master`
