@@ -2,14 +2,15 @@
 """Nele - Generate fancy newsletters with markdown
 
 Usage:
-  nele draft <newsletter_source> [<recipient>]
-  nele send <newsletter_source>
+  nele [--config <FILE>] draft <newsletter_source> [<recipient>]
+  nele [--config <FILE>] send <newsletter_source>
   nele (-h | --help)
   nele --version
 
 Options:
-  --version     Show version.
-  -h --help     Show this screen.
+  --version           Show version.
+  -h --help           Show this screen.
+  -c --config <FILE>  Configuration File [default: nele.yml] 
 
 """
 
@@ -116,7 +117,7 @@ def send_newsletter(source, config, recipients):
 def main():
     arguments = docopt(__doc__, version='Nele %s' % ___version___)
     source = arguments['<newsletter_source>']
-    config = yaml.load(open('nele.yml'))
+    config = yaml.load(open(arguments['--config']))
 
     if arguments['send']:
         print('Arey you sure you want to send a Newsletter to EVERYONE? [y/N]')
