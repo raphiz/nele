@@ -19,7 +19,7 @@ setup(
     platforms=["Linux"],
     include_package_data=False,
     zip_safe=False,
-    install_requires=open('./requirements.txt').read(),
+    install_requires=['py-gfm', 'python-frontmatter', 'jinja2', 'docopt']
     entry_points={
         'console_scripts':
             ['nele = nele:main']
