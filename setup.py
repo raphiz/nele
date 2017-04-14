@@ -7,7 +7,7 @@ from setuptools import setup
 
 setup(
     name="nele",
-    version="0.2.0.dev",
+    version="0.2.0",
     packages=['nele'],
     author="Raphael Zimmermann",
     author_email="dev@raphael.li",
