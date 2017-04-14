@@ -113,3 +113,14 @@ This is a fancy email!
 
 Feel free to open new issues, submit pull requests or send me an email.
 I would love to hear from you.
+
+## Internal
+
+### Make a new release
+* Make sure everything is committed
+* `bumpversion release`
+* Create sdist and upload it
+    * First on the test environment `python setup.py sdist upload -r pypitest`
+    * Then into production `python setup.py sdist upload -r pypi`
+* Make a new dev release `bumpversion minor --no-tag`
+* Push to github
