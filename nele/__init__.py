@@ -45,7 +45,7 @@ def setup_smtp(config):
     if config['sender'].get('starttls', False):
         smtp.starttls()
 
-    smtp.login(config['sender']['user'], getpass.getpass())
+    smtp.login(config['sender']['user'], getpass.getpass(f"SMTP Password for user {config['sender']['user']}: "))
     return smtp
 
 
