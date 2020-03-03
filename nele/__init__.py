@@ -37,9 +37,9 @@ from jinja2 import Template
 
 def setup_smtp(config):
     if config['sender'].get('ssl', False):
-        smtp = smtplib.SMTP_SSL(config['sender']['host'])
+        smtp = smtplib.SMTP_SSL(config['sender']['host'], config['sender'].get('port', 993))
     else:
-        smtp = smtplib.SMTP(config['sender']['host'])
+        smtp = smtplib.SMTP(config['sender']['host'], config['sender'].get('port', 587))
 
     if config['sender'].get('starttls', False):
         smtp.starttls()
