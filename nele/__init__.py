@@ -25,6 +25,7 @@ import email.utils
 import mimetypes
 import getpass
 import os
+import sys
 import sqlite3
 
 from docopt import docopt
@@ -50,7 +51,7 @@ def setup_smtp(config):
 
 def load_recipients(config):
     if config['source']['provider'] != 'sqlite':
-        print('currently, only sqlite is supported')
+        print('currently, only sqlite is supported', file=sys.stderr)
         exit(1)
 
     conn = sqlite3.connect(config['source']['url'])
