@@ -133,7 +133,7 @@ def main():
     # Work relative to the config file
     config_file = os.path.abspath(arguments['--config'])
     os.chdir(os.path.dirname(config_file))
-    config = yaml.load(open(config_file))
+    config = yaml.load(open(config_file), Loader=yaml.SafeLoader)
 
     if arguments['send']:
         print('Arey you sure you want to send a Newsletter to EVERYONE? [y/N]')
