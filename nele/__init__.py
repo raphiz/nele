@@ -136,13 +136,14 @@ def main():
     config = yaml.load(open(config_file), Loader=yaml.SafeLoader)
 
     if arguments['send']:
-        print('Arey you sure you want to send a Newsletter to EVERYONE? [y/N]')
+        print('Are you sure you want to send a newsletter to EVERYONE? [y/N]', end=' ')
         if input().lower() != 'y':
             print("aborting....")
             return
         recipients = load_recipients(config)
         send_newsletter(source, config, recipients)
     if arguments['draft']:
+        print("Welcome to draft mode!")
         if arguments['<recipient>']:
             config['draft']['email'] = arguments['<recipient>']
         send_newsletter(source, config, [config['draft']])
