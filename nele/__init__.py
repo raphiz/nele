@@ -50,6 +50,14 @@ def setup_smtp(config):
 
 
 def load_recipients(config):
+
+    if config['source']['provider'] == 'inline':
+        recipients = config['source']['recipients']
+        if not len(recipients):
+            print('No inline recipients configured', file=sys.stderr)
+            exit(2)
+        return recipients
+
     if config['source']['provider'] != 'sqlite':
         print('currently, only sqlite is supported', file=sys.stderr)
         exit(1)
