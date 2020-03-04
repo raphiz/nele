@@ -10,7 +10,7 @@ Usage:
 Options:
   --version           Show version.
   -h --help           Show this screen.
-  -c --config <FILE>  Configuration File [default: nele.yml] 
+  -c --config <FILE>  Configuration File [default: nele.yml]
 
 """
 
@@ -20,7 +20,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 from email.mime.multipart import MIMEMultipart
-from email import utils as emailutils
+import email.utils
 
 import mimetypes
 import getpass
@@ -87,7 +87,8 @@ def send_newsletter(source, config, recipients):
         msg['Subject'] = post['subject']
         msg['From'] = config['sender']['sender']
         msg['To'] = receiver['email']
-        msg['Date'] = emailutils.formatdate()
+        msg['Date'] = email.utils.formatdate()
+        msg['Message-ID'] = email.utils.make_msgid()
         msg.preamble = post['subject']
 
         context = receiver.copy()
@@ -118,8 +119,12 @@ def send_newsletter(source, config, recipients):
 
 def main():
     arguments = docopt(__doc__, version='Nele %s' % ___version___)
-    source = arguments['<newsletter_source>']
-    config = yaml.load(open(arguments['--config']))
+    source = os.path.abspath(arguments['<newsletter_source>'])
+
+    # Work relative to the config file
+    config_file = os.path.abspath(arguments['--config'])
+    os.chdir(os.path.dirname(config_file))
+    config = yaml.load(open(config_file))
 
     if arguments['send']:
         print('Arey you sure you want to send a Newsletter to EVERYONE? [y/N]')
