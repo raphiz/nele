@@ -148,5 +148,6 @@ def main():
             config['draft']['email'] = arguments['<recipient>']
         send_newsletter(source, config, [config['draft']])
 
+
 if __name__ == '__main__':
     main()
