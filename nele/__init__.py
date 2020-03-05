@@ -25,6 +25,7 @@ import email.utils
 import mimetypes
 import getpass
 import os
+import sys
 import sqlite3
 
 from docopt import docopt
@@ -37,20 +38,28 @@ from jinja2 import Template
 
 def setup_smtp(config):
     if config['sender'].get('ssl', False):
-        smtp = smtplib.SMTP_SSL(config['sender']['host'])
+        smtp = smtplib.SMTP_SSL(config['sender']['host'], config['sender'].get('port', 993))
     else:
-        smtp = smtplib.SMTP(config['sender']['host'])
+        smtp = smtplib.SMTP(config['sender']['host'], config['sender'].get('port', 587))
 
     if config['sender'].get('starttls', False):
         smtp.starttls()
 
-    smtp.login(config['sender']['user'], getpass.getpass())
+    smtp.login(config['sender']['user'], getpass.getpass(f"SMTP password for user {config['sender']['user']}: "))
     return smtp
 
 
 def load_recipients(config):
+
+    if config['source']['provider'] == 'inline':
+        recipients = config['source']['recipients']
+        if not len(recipients):
+            print('No inline recipients configured', file=sys.stderr)
+            exit(2)
+        return recipients
+
     if config['source']['provider'] != 'sqlite':
-        print('currently, only sqlite is supported')
+        print('currently, only sqlite is supported', file=sys.stderr)
         exit(1)
 
     conn = sqlite3.connect(config['source']['url'])
@@ -124,16 +133,17 @@ def main():
     # Work relative to the config file
     config_file = os.path.abspath(arguments['--config'])
     os.chdir(os.path.dirname(config_file))
-    config = yaml.load(open(config_file))
+    config = yaml.safe_load(open(config_file))
 
     if arguments['send']:
-        print('Arey you sure you want to send a Newsletter to EVERYONE? [y/N]')
+        print('Are you sure you want to send a newsletter to EVERYONE? [y/N]', end=' ')
         if input().lower() != 'y':
             print("aborting....")
             return
         recipients = load_recipients(config)
         send_newsletter(source, config, recipients)
     if arguments['draft']:
+        print("Welcome to draft mode!")
         if arguments['<recipient>']:
             config['draft']['email'] = arguments['<recipient>']
         send_newsletter(source, config, [config['draft']])
