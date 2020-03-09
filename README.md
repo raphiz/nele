@@ -5,6 +5,7 @@ Want to send a newsletter but mind big newsletter providers? Want to write your 
 Then Nele is the right choice for you!
 
 ## Feature Overview
+
 * Create Beautiful emails - which look great in HTML and plaintext
 * Personalize Emails with the power of Jinja Templates
 * Create custom HTML layouts
@@ -16,40 +17,49 @@ TODO: image - markdown in editor / HTML email in Thunderbird / plain text in thu
 Nele is not limited to Newsletters - it can also be used to send emails to all (or some) members of your community, group or society.
 
 ## Getting started
+
 1. Change the directory to where you want to store your newsletters
-```bash
-cd newsletters/
-```
+
+    ```bash
+    cd newsletters/
+    ```
+
 2. Download the example configuration
-```bash
-wget https://raw.githubusercontent.com/raphiz/nele/master/example/nele.yml
-```
+
+    ```bash
+    wget https://raw.githubusercontent.com/raphiz/nele/master/example/nele.yml
+    ```
+
 3. Edit the configuration and adapt it to your needs - you must at least edit sender and source. Check out the [configuration](#Configuration) section for details.
-```bash
-vi nele.yaml
-```
+
+    ```bash
+    vim nele.yaml
+    ```
 
 4. Time to create your template. In the example config, it is called `template.html`. You can also download an example template to get started.
-```bash
-wget https://raw.githubusercontent.com/raphiz/nele/master/example/template.html
-```
+
+    ```bash
+    wget https://raw.githubusercontent.com/raphiz/nele/master/example/template.html
+    ```
 
 5. Create your first newsletter! To get started, you can use a template as well (or checkout the [configuration](#Configuration) section). This template defines an attachment. Delete the attachment section if you don't want it or download the example pdf as well.
-```bash
-wget https://raw.githubusercontent.com/raphiz/nele/master/example/mail.md
-wget https://raw.githubusercontent.com/raphiz/nele/master/example/demo.pdf
-```
+
+    ```bash
+    wget https://raw.githubusercontent.com/raphiz/nele/master/example/mail.md
+    wget https://raw.githubusercontent.com/raphiz/nele/master/example/demo.pdf
+    ```
 
 6. Ready to try it out? Test it before you send it to everyone using the draft method. The second parameter is the receiver
 
-```bash
-nele draft mail.md YOUR@EMAIL.com
-```
+    ```bash
+    nele draft mail.md YOUR@EMAIL.com
+    ```
 
 7. Everything good? If so, you can easily send it to everyone.
-```bash
-nele send mail.md
-```
+
+    ```bash
+    nele send mail.md
+    ```
 
 ## Limitations
 
@@ -94,6 +104,7 @@ draft:
 ```
 
 ### Frontmatter header
+
 On top of every markdown newsletter, you must provide the frontmatter header.
 
 ```yaml
@@ -117,10 +128,7 @@ I would love to hear from you.
 ## Internal
 
 ### Make a new release
-* Make sure everything is committed
+
 * `bumpversion release`
-* Create sdist and upload it
-    * First on the test environment `python setup.py sdist upload -r pypitest`
-    * Then into production `python setup.py sdist upload -r pypi`
 * Make a new dev release `bumpversion minor --no-tag`
-* Push to github
+* Push to github `git push  --follow-tags`
