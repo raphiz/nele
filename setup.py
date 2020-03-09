@@ -27,7 +27,6 @@ setup(
     classifiers=[
         'Programming Language :: Python',
         'Programming Language :: Python :: 3.5',
-        "Programming Language :: Python :: Implementation :: CPython",
-        'Development Status :: 4 - Beta',
+        "Programming Language :: Python :: Implementation :: CPython"
     ],
 )
