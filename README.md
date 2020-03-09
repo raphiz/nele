@@ -131,4 +131,4 @@ I would love to hear from you.
 
 * `bumpversion release`
 * Make a new dev release `bumpversion minor --no-tag`
-* Push to github `git push  --follow-tags`
+* Push to github `git push && git push --tags`
