@@ -31,8 +31,7 @@ import sqlite3
 from docopt import docopt
 import yaml
 import frontmatter
-import markdown
-from mdx_gfm import GithubFlavoredMarkdownExtension
+import cmarkgfm
 from jinja2 import Template
 
 
@@ -69,8 +68,8 @@ def load_recipients(config):
     titles = [x[0] for x in c.description]
     for row in rows:
         recipient = {}
-        for idx in range(len(titles)):
-            recipient[titles[idx]] = row[idx]
+        for idx, title in enumerate(titles):
+            recipient[title] = row[idx]
         recipients.append(recipient)
     conn.close()
 
@@ -83,10 +82,9 @@ def send_newsletter(source, config, recipients):
     # Load E-Mail contents
     post = frontmatter.load(source)
 
-    # Load markdown parser
-    md = markdown.Markdown(extensions=[GithubFlavoredMarkdownExtension()])
+    options = cmarkgfm.Options.CMARK_OPT_UNSAFE
 
-    with open(config['email']['template'], 'r') as f:
+    with open(config['email']['template'], 'r', encoding="utf-8") as f:
         html_template = Template(f.read())
 
     markdown_template = Template(post.content)
@@ -104,7 +102,7 @@ def send_newsletter(source, config, recipients):
         context.update(post)
         plain = markdown_template.render(**context)
 
-        context['content'] = md.convert(plain)
+        context['content'] = cmarkgfm.github_flavored_markdown_to_html(plain, options=options)
         html = html_template.render(**context)
         textmsg = MIMEMultipart('alternative')
         textmsg.attach(MIMEText(plain, 'plain', 'utf-8'))
@@ -133,7 +131,7 @@ def main():
     # Work relative to the config file
     config_file = os.path.abspath(arguments['--config'])
     os.chdir(os.path.dirname(config_file))
-    config = yaml.safe_load(open(config_file))
+    config = yaml.safe_load(open(config_file, encoding="utf-8"))
 
     if arguments['send']:
         print('Are you sure you want to send a newsletter to EVERYONE? [y/N]', end=' ')

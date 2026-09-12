@@ -1,4 +1,4 @@
-py-gfm
+cmarkgfm
 python-frontmatter
 jinja2
 docopt
