@@ -4,3 +4,4 @@ __pycache__/
 /nele.egg-info/
 /build/
 /dist/
+/.direnv
